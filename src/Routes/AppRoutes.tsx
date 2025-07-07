@@ -6,7 +6,6 @@ import Products from "../pages/Products/Products";
 import WishlistPage from "../pages/WishlistPage";
 import CartPage from "../pages/CartPage";
 import CheckoutPage from "../pages/CheckOut/CheckOut";
-import ChatPage from "../Component/chat/Chat";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +14,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "products", element: <Products /> },
-      { path: "chat", element: <ChatPage /> },
       { path: "/wishlist", element: <WishlistPage /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/checkout", element: <CheckoutPage /> },
