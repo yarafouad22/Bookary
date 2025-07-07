@@ -139,9 +139,8 @@ export default function CartPage() {
                 onChange={(e) =>
                   handleQuantityChange(item.book_id, Number(e.target.value))
                 }
-                sx={{ width: 70, mt: 1 }}
+                sx={{ width: 200, mt: 2 }}
                 size="sm"
-                min={1}
               />
             </div>
 

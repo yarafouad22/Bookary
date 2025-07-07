@@ -57,12 +57,12 @@ function Product() {
     <>
       <h1>{t("Books")}</h1>
       <div style={{ maxWidth: 400, marginBottom: 30 }}>
-        <Typography level="h5" gutterBottom>
+        <Typography level="h3" gutterBottom>
           💰 {t("Filter by price")} – {maxPrice}$
         </Typography>
         <Slider
           value={maxPrice}
-          onChange={(e, val) => setMaxPrice(val as number)}
+          onChange={(_, val) => setMaxPrice(val as number)}
           min={0}
           max={40}
           step={1}
