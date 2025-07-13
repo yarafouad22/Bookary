@@ -1,32 +1,17 @@
 import { IconButton } from "@mui/joy";
-import { useEffect, useState } from "react";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useColorScheme } from "@mui/joy/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 export default function DarkModeToggle() {
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
-
-  const toggleDarkMode = () => setIsDark((prev) => !prev);
-
-  useEffect(() => {
-    const mode = "dark-mode";
-    if (isDark) {
-      document.body.classList.add(mode);
-    } else {
-      document.body.classList.remove(mode);
-    }
-    localStorage.setItem("darkMode", String(isDark));
-  }, [isDark]);
+  const { mode, setMode } = useColorScheme();
 
   return (
-    <IconButton variant="plain" color="neutral" onClick={toggleDarkMode}>
-      {isDark ? (
-        <LightModeIcon sx={{ color: "orange" }} />
-      ) : (
-        <DarkModeIcon sx={{ color: "black" }} />
-      )}
+    <IconButton
+      color="primary"
+      onClick={() => setMode(mode === "light" ? "dark" : "light")}
+    >
+      {mode === "light" ? <LightModeIcon /> : <DarkModeIcon />}
     </IconButton>
   );
 }

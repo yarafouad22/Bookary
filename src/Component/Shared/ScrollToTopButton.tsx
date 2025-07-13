@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Fab, Zoom } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { Button } from "@mui/joy";
 
 export default function ScrollToTopButton() {
   const [show, setShow] = useState(false);
@@ -18,23 +18,27 @@ export default function ScrollToTopButton() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  return (
-    <Zoom in={show}>
-      <Fab
-        color="primary"
-        size="medium"
-        onClick={scrollToTop}
-        sx={{
-          position: "fixed",
-          bottom: 24,
-          right: 24,
-          zIndex: 1000,
-          bgcolor: "#1976d2",
-          "&:hover": { bgcolor: "#115293" },
-        }}
-      >
-        <KeyboardArrowUpIcon />
-      </Fab>
-    </Zoom>
-  );
+  return show ? (
+    <Button
+      variant="solid"
+      color="primary"
+      onClick={scrollToTop}
+      sx={{
+        position: "fixed",
+        bottom: 24,
+        right: 24,
+        zIndex: 1000,
+        borderRadius: "50%",
+        minWidth: 56,
+        height: 56,
+        p: 0,
+        boxShadow: "md",
+        "& svg": {
+          fontSize: "24px",
+        },
+      }}
+    >
+      <KeyboardArrowUpIcon />
+    </Button>
+  ) : null;
 }

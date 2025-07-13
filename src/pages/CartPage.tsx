@@ -5,7 +5,14 @@ import {
   useRemoveFromCartMutation,
 } from "../Services/books";
 import { USER_ID } from "../Supabase/supabaseClient";
-import { Button, Typography, Sheet, Input, CircularProgress } from "@mui/joy";
+import {
+  Button,
+  Typography,
+  Sheet,
+  Input,
+  CircularProgress,
+  Box,
+} from "@mui/joy";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -112,52 +119,71 @@ export default function CartPage() {
             variant="outlined"
             sx={{
               display: "flex",
-              alignItems: "center",
-              gap: 4,
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: { xs: "flex-start", sm: "center" },
+              gap: 2,
               p: 2,
               my: 1,
               borderRadius: "md",
             }}
           >
-            <img
+            <Box
+              component="img"
               src={item.books.image_url}
               alt={item.books.title}
-              width={80}
-              height={100}
+              sx={{
+                width: { xs: 60, sm: 80 },
+                height: { xs: 80, sm: 100 },
+                borderRadius: 1,
+                objectFit: "cover",
+              }}
             />
 
-            <div style={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1, width: "100%" }}>
               <Typography level="title-md">{item.books.title}</Typography>
               <Typography level="body-sm" sx={{ mt: 0.5 }}>
                 {t("price")}: {item.books.price} ×
                 {quantities[item.book_id] ?? item.quantity}
               </Typography>
-
               <Input
                 type="number"
                 value={quantities[item.book_id] ?? item.quantity}
                 onChange={(e) =>
                   handleQuantityChange(item.book_id, Number(e.target.value))
                 }
-                sx={{ width: 200, mt: 2 }}
+                sx={{
+                  width: { xs: "100%", sm: 200 },
+                  mt: 2,
+                }}
                 size="sm"
               />
-            </div>
+            </Box>
 
-            <Button
-              color="danger"
-              onClick={() => handleRemoveFromCart(item.book_id)}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                gap: 1,
+                width: { xs: "100%", sm: "auto" },
+              }}
             >
-              {t("Delete")}
-            </Button>
+              <Button
+                color="danger"
+                onClick={() => handleRemoveFromCart(item.book_id)}
+                fullWidth
+              >
+                {t("Delete")}
+              </Button>
 
-            <Button
-              color="neutral"
-              variant="soft"
-              onClick={() => handleMoveToWishlist(item.book_id)}
-            >
-              {t("Add to wishlist")}
-            </Button>
+              <Button
+                color="neutral"
+                variant="soft"
+                onClick={() => handleMoveToWishlist(item.book_id)}
+                fullWidth
+              >
+                {t("Add to wishlist")}
+              </Button>
+            </Box>
           </Sheet>
         );
       })}

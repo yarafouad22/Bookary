@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const BASE_URL = "https://jxzpensbifvqjsumlhyt.supabase.co/rest/v1/";
 
-interface Book {
+export interface Book {
   id: string;
   title: string;
   image_url: string;
@@ -42,14 +42,12 @@ export const booksApi = createApi({
   }),
 
   endpoints: (builder) => ({
-
     getBooks: builder.query<Book[], void>({
       query: () => ({
         url: "books",
         params: { select: "*" },
       }),
     }),
-
 
     getBestSellers: builder.query<Book[], void>({
       query: () => ({
@@ -60,7 +58,6 @@ export const booksApi = createApi({
         },
       }),
     }),
-
 
     getBookDetails: builder.query<Book, string>({
       query: (id) => ({
@@ -73,77 +70,81 @@ export const booksApi = createApi({
       transformResponse: (res: Book[]) => res[0],
     }),
 
-   getWishlist: builder.query<Book[], string>({
-  query: (userId) => ({
-    url: 'wishlist',
-    params: {
-      select: '*,books(*)',
-      user_id: `eq.${userId}`,
-    },
-  }),
-  transformResponse: (response: WishlistItem[]) =>
-    response.map((item) => item.books),
-  providesTags:  ["Wishlist"],
-}),
+    getWishlist: builder.query<Book[], string>({
+      query: (userId) => ({
+        url: "wishlist",
+        params: {
+          select: "*,books(*)",
+          user_id: `eq.${userId}`,
+        },
+      }),
+      transformResponse: (response: WishlistItem[]) =>
+        response.map((item) => item.books),
+      providesTags: ["Wishlist"],
+    }),
 
+    addToWishlist: builder.mutation<void, { user_id: string; book_id: string }>(
+      {
+        query: ({ user_id, book_id }) => ({
+          url: "wishlist",
+          method: "POST",
+          body: { user_id, book_id },
+        }),
+        invalidatesTags: ["Wishlist"],
+      }
+    ),
 
-addToWishlist: builder.mutation<void, { user_id: string; book_id: string }>({
-  query: ({ user_id, book_id }) => ({
-    url: "wishlist",
-    method: "POST",
-    body: { user_id, book_id },
-  }),
-  invalidatesTags: [ "Wishlist"],
-}),
+    removeFromWishlist: builder.mutation<
+      void,
+      { user_id: string; book_id: string }
+    >({
+      query: ({ user_id, book_id }) => ({
+        url: `wishlist?user_id=eq.${user_id}&book_id=eq.${book_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Wishlist"],
+    }),
 
+    addToCart: builder.mutation({
+      query: ({ user_id, book_id, quantity }) => ({
+        url: "cart",
+        method: "POST",
+        body: { user_id, book_id, quantity },
+      }),
+      invalidatesTags: ["Cart"],
+    }),
 
-removeFromWishlist: builder.mutation<void, { user_id: string; book_id: string }>({
-  query: ({ user_id, book_id }) => ({
-    url: `wishlist?user_id=eq.${user_id}&book_id=eq.${book_id}`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["Wishlist"],
-}),
+    getCart: builder.query<CartItem[], string>({
+      query: (userId) => ({
+        url: "cart",
+        params: {
+          select: "*,books(*)",
+          user_id: `eq.${userId}`,
+        },
+      }),
+      providesTags: ["Cart"],
+    }),
 
-addToCart: builder.mutation({
-  query: ({ user_id, book_id, quantity }) => ({
-    url: "cart",
-    method: "POST",
-    body: { user_id, book_id, quantity },
-  }),
-  invalidatesTags: ["Cart"],
-}),
-
-getCart: builder.query<CartItem[], string>({
-  query: (userId) => ({
-    url: "cart",
-    params: {
-      select: "*,books(*)",
-      user_id: `eq.${userId}`,
-    },
-  }),
-  providesTags:  ["Cart"],
-}),
-
-    removeFromCart: builder.mutation<void, { user_id: string; book_id: string }>({
+    removeFromCart: builder.mutation<
+      void,
+      { user_id: string; book_id: string }
+    >({
       query: ({ user_id, book_id }) => ({
         url: `cart?user_id=eq.${user_id}&book_id=eq.${book_id}`,
         method: "DELETE",
       }),
-      invalidatesTags:[ "Cart"],
+      invalidatesTags: ["Cart"],
     }),
 
-getBooksByPrice: builder.query<Book[], number>({
-  query: (maxPrice) => ({
-    url: "books",
-    params: {
-      select: "*",
-      price: `lte.${maxPrice}`,
-    },
-  }),
-}),
-
-
+    getBooksByPrice: builder.query<Book[], number>({
+      query: (maxPrice) => ({
+        url: "books",
+        params: {
+          select: "*",
+          price: `lte.${maxPrice}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -156,6 +157,6 @@ export const {
   useRemoveFromWishlistMutation,
   useGetCartQuery,
   useAddToCartMutation,
-  useRemoveFromCartMutation, 
-  useGetBooksByPriceQuery
+  useRemoveFromCartMutation,
+  useGetBooksByPriceQuery,
 } = booksApi;

@@ -5,8 +5,6 @@ import {
   useAddToCartMutation,
 } from "../Services/books";
 import { USER_ID } from "../Supabase/supabaseClient";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTranslation } from "react-i18next";
 
 export default function WishlistPage() {
@@ -22,21 +20,24 @@ export default function WishlistPage() {
 
   if (isLoading)
     return (
-      <p
-        style={{
+      <Typography
+        level="h4"
+        sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           height: "50vh",
         }}
       >
-        laoding...
-      </p>
+        Loading...
+      </Typography>
     );
+
   if (wishlist.length === 0)
     return (
-      <p
-        style={{
+      <Typography
+        level="h4"
+        sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -44,11 +45,17 @@ export default function WishlistPage() {
         }}
       >
         {t("emptyCart")}
-      </p>
+      </Typography>
     );
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "16px",
+      }}
+    >
       {wishlist.map((book) => (
         <Card
           key={book.id}
@@ -71,15 +78,18 @@ export default function WishlistPage() {
             color="danger"
             sx={{ position: "absolute", top: 8, right: 8 }}
           >
-            <DeleteIcon />
+            ✖️
           </IconButton>
 
           <img
-            src={book.image_url}
+            src={book.image_url || "/placeholder-book.jpg"}
             alt={book.title}
             width="100%"
             height={150}
             style={{ objectFit: "cover", borderRadius: "8px" }}
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder-book.jpg";
+            }}
           />
 
           <CardContent sx={{ p: 1 }}>
@@ -88,9 +98,7 @@ export default function WishlistPage() {
             </Typography>
             <Typography level="body-sm">{book.price} EGP</Typography>
           </CardContent>
-
           <Button
-            startDecorator={<ShoppingCartIcon />}
             onClick={() => handleAddToCartAndRemove(book.id)}
             color="primary"
             size="sm"

@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, Typography, Box } from "@mui/material";
+import { Box, Sheet } from "@mui/joy";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { useNavigate } from "react-router-dom";
 import HeaderBasket from "../../e-commerce/HeaderBasket/HeaderBasket";
-import "../global.scss";
 import DarkModeToggle from "./DarkModeToggle";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
@@ -9,44 +9,48 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar
-      position="static"
+    <Sheet
+      variant="solid"
+      color="primary"
       sx={{
-        backgroundColor: "#9e9e9e",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+        py: 2,
+        px: 3,
+        boxShadow: "sm",
+        display: "flex",
+        backgroundColor: "rgba(246, 22, 156, 0.39)",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderRadius: 0,
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography
-          variant="h5"
-          component="div"
-          sx={{ fontWeight: "bold", display: "flex", alignItems: "center" }}
-        >
-          <Box
-            component="span"
-            sx={{
-              backgroundColor: "#ddd",
-              px: 1.5,
-              py: 0.5,
-              borderRadius: 2,
-              color: "#333",
-              fontSize: "1.3rem",
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/")}
-          >
-            Bookary
-          </Box>
-        </Typography>
+      <Box
+        onClick={() => navigate("/")}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          color: "text.primary",
+          px: 1.5,
+          py: 0.5,
+          borderRadius: "md",
+          cursor: "pointer",
+          fontWeight: "bold",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      >
+        <MenuBookIcon color="primary" sx={{ fontSize: 28 }} />
+        Bookary
+      </Box>
 
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <LanguageSwitcher />
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <HeaderBasket />
-          <DarkModeToggle />
-        </Box>
-      </Toolbar>
-    </AppBar>
+        <HeaderBasket />
+        <DarkModeToggle />
+      </Box>
+    </Sheet>
   );
 };
 
