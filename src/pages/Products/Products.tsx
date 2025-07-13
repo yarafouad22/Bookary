@@ -73,7 +73,7 @@ function Product() {
           }}
         >
           <Typography
-            variant="h3"
+            level="h4"
             sx={{
               display: "flex",
               alignItems: "center",
@@ -90,7 +90,7 @@ function Product() {
           </Typography>
 
           <Typography
-            variant="h3"
+            level="h3"
             sx={{
               color: "#FF4081",
               fontWeight: "bold",
