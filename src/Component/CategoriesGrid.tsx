@@ -46,7 +46,7 @@ function CategoriesSlider() {
       >
         <Box
           sx={(theme) => ({
-            width: { xs: "150px", md: "1000px" },
+            width: { xs: "130px", md: "1000px" },
             height: "1px",
             backgroundColor: theme.vars.palette.divider,
             ml: 2,
@@ -59,6 +59,7 @@ function CategoriesSlider() {
         color="primary"
         onClick={() => handleScroll("left")}
         sx={{
+          display: { xs: "none", md: "flex" },
           position: "absolute",
           left: -10,
           top: "50%",
@@ -69,28 +70,19 @@ function CategoriesSlider() {
         <ArrowBackIosNewIcon />
       </IconButton>
 
-      <IconButton
-        color="primary"
-        onClick={() => handleScroll("right")}
-        sx={{
-          position: "absolute",
-          right: -10,
-          top: "50%",
-          transform: "translateY(-50%)",
-          zIndex: 10,
-        }}
-      >
-        <ArrowForwardIosIcon />
-      </IconButton>
-
       <Box
         ref={scrollRef}
         sx={{
           display: "flex",
           gap: 2,
-          overflow: "hidden",
+          overflowX: "auto",
+          overflowY: "hidden",
           px: 2,
           py: 2,
+          scrollbarWidth: "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
         }}
       >
         {categories.map((cat) => (
@@ -98,10 +90,10 @@ function CategoriesSlider() {
             key={cat.id}
             onClick={() => handleClick(cat.name)}
             sx={(theme) => ({
-              minWidth: 200,
-              minHeight: 200,
-              width: 200,
-              height: 200,
+              width: { xs: 120, sm: 160, md: 200 },
+              height: { xs: 120, sm: 160, md: 200 },
+              minWidth: { xs: 120, sm: 160, md: 200 },
+              minHeight: { xs: 120, sm: 160, md: 200 },
               flex: "0 0 auto",
               cursor: "pointer",
               borderRadius: "50%",

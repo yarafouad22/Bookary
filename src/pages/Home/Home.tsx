@@ -26,7 +26,7 @@ const Home = () => {
               key={index}
               variant="outlined"
               sx={{
-                width: 130,
+                width: { xs: "100%", sm: 130 },
                 p: 2,
                 borderRadius: "md",
                 textAlign: "center",
@@ -34,7 +34,7 @@ const Home = () => {
             >
               <Skeleton
                 variant="rectangular"
-                width={130}
+                width="100%"
                 height={150}
                 sx={{ borderRadius: "md" }}
               />
