@@ -5,14 +5,7 @@ import {
   useRemoveFromCartMutation,
 } from "../Services/books";
 import { USER_ID } from "../Supabase/supabaseClient";
-import {
-  Button,
-  Typography,
-  Sheet,
-  Input,
-  CircularProgress,
-  Box,
-} from "@mui/joy";
+import { Button, Typography, Sheet, CircularProgress, Box } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
