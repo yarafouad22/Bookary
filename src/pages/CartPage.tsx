@@ -152,21 +152,49 @@ export default function CartPage() {
                       {quantities[item.book_id] ?? item.quantity}
                     </Typography>
 
-                    <Input
-                      type="number"
-                      value={quantities[item.book_id] ?? item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          item.book_id,
-                          Number(e.target.value)
-                        )
-                      }
+                    <Box
                       sx={{
-                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 1,
                         mt: 2,
                       }}
-                      size="sm"
-                    />
+                    >
+                      <Button
+                        variant="outlined"
+                        size="sm"
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.book_id,
+                            (quantities[item.book_id] ?? item.quantity) - 1
+                          )
+                        }
+                        disabled={
+                          (quantities[item.book_id] ?? item.quantity) <= 1
+                        }
+                      >
+                        –
+                      </Button>
+                      <Typography
+                        level="title-sm"
+                        sx={{ minWidth: "32px", textAlign: "center" }}
+                      >
+                        {quantities[item.book_id] ?? item.quantity}
+                      </Typography>
+                      <Button
+                        variant="outlined"
+                        size="sm"
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.book_id,
+                            (quantities[item.book_id] ?? item.quantity) + 1
+                          )
+                        }
+                      >
+                        +
+                      </Button>
+                    </Box>
                   </Box>
 
                   <Box
