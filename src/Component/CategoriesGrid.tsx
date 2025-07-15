@@ -21,7 +21,7 @@ function CategoriesSlider() {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (_name?: string) => {
     navigate(`/products`);
   };
 
@@ -83,7 +83,6 @@ function CategoriesSlider() {
         <ArrowForwardIosIcon />
       </IconButton>
 
-      {/* Categories */}
       <Box
         ref={scrollRef}
         sx={{
