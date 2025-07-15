@@ -15,11 +15,9 @@ import {
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 export default function WishlistPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const { data: wishlist = [], isLoading } = useGetWishlistQuery(USER_ID);
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
