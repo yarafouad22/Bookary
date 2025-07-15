@@ -159,7 +159,7 @@ function Product() {
                   <CardContent sx={{ position: "relative", zIndex: 3 }}>
                     <Typography level="title-md">{book.title}</Typography>
                     <Typography
-                      level="h4"
+                      level="body-md"
                       sx={(theme) => ({
                         color: theme.palette.primary.solidBg,
                       })}
