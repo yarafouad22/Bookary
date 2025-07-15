@@ -50,7 +50,7 @@ export default function Hero() {
           <motion.div
             initial={{ scale: 0, rotate: -10 }}
             animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 3, repeat: Infinity }}
           >
             <Box
               sx={(theme) => ({
