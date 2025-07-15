@@ -86,6 +86,10 @@ function Product() {
                 <Card
                   className="book-card"
                   sx={(theme) => ({
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
                     backgroundColor: theme.vars.palette.background.surface,
                     color: theme.vars.palette.text.primary,
                   })}
