@@ -1,6 +1,5 @@
 import { Box, Typography, Card, IconButton } from "@mui/joy";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import categories from "../data/categories.ts";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
