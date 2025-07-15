@@ -1,6 +1,7 @@
 import { Box, Typography, Card, IconButton } from "@mui/joy";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import categories from "../data/categories.ts";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import categories from "../data/categories";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
@@ -8,7 +9,7 @@ function CategoriesSlider() {
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = (direction: string) => {
+  const handleScroll = (direction: "left" | "right") => {
     const container = scrollRef.current;
     const scrollAmount = 250;
 
@@ -20,8 +21,8 @@ function CategoriesSlider() {
     }
   };
 
-  const handleClick = (_name?: string) => {
-    navigate(`/products`);
+  const handleClick = (name?: string) => {
+    navigate(`/products?category=${encodeURIComponent(name || "")}`);
   };
 
   return (
@@ -34,6 +35,7 @@ function CategoriesSlider() {
         position: "relative",
       }}
     >
+      {/* Title line */}
       <Box
         sx={{
           display: "flex",
@@ -54,6 +56,7 @@ function CategoriesSlider() {
         />
       </Box>
 
+      {/* Scroll left button */}
       <IconButton
         color="primary"
         onClick={() => handleScroll("left")}
@@ -146,6 +149,21 @@ function CategoriesSlider() {
           </Card>
         ))}
       </Box>
+
+      <IconButton
+        color="primary"
+        onClick={() => handleScroll("right")}
+        sx={{
+          display: { xs: "none", md: "flex" },
+          position: "absolute",
+          right: -10,
+          top: "50%",
+          transform: "translateY(-50%)",
+          zIndex: 10,
+        }}
+      >
+        <ArrowForwardIosIcon />
+      </IconButton>
     </Box>
   );
 }
