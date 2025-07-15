@@ -28,7 +28,6 @@ const SharedModalWrapper = ({
           borderRadius: "md",
           p: 4,
           boxShadow: "lg",
-          backgroundColor: "#fff",
         }}
       >
         <ModalClose variant="plain" sx={{ m: 1 }} />

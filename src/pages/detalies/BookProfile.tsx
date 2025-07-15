@@ -1,6 +1,8 @@
 import Typography from "@mui/joy/Typography";
 import { useGetBookDetailsQuery } from "../../Services/books";
 import SharedModalWrapper from "../../Component/Shared/SharedModalWrapper";
+import { Box, CircularProgress } from "@mui/joy";
+import { motion } from "framer-motion";
 
 type Props = {
   open: boolean;
@@ -13,40 +15,72 @@ const BookProfileModal = ({ open, bookId, onClose }: Props) => {
 
   return (
     <SharedModalWrapper open={open} onClose={onClose}>
-      {isLoading && <Typography>loading...</Typography>}
-      {error && <Typography color="danger">Error</Typography>}
+      {isLoading && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "200px",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      {error && (
+        <Typography color="danger" level="h4">
+          Error loading book details
+        </Typography>
+      )}
 
       {book && (
-        <>
-          <Typography level="h3" sx={{ mb: 2 }}>
-            {book.title}
-          </Typography>
-          <img
-            src={book.image_url}
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <Typography level="h3">{book.title}</Typography>
+          <Box
+            component="img"
+            src={book.image_url || "/placeholder-book.jpg"}
             alt={book.title}
-            style={{
+            sx={{
               width: "80%",
               borderRadius: "12px",
-              marginBottom: "1.5rem",
+              mb: 3,
+              objectFit: "cover",
+              maxHeight: "300px",
+            }}
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder-book.jpg";
             }}
           />
-          <Typography level="body-lg" sx={{ mb: 2 }}>
+
+          <Typography
+            level="body-lg"
+            sx={(theme) => ({
+              mb: 2,
+              color: theme.vars.palette.text.primary,
+            })}
+          >
             {book.description}
           </Typography>
+
           <Typography
             level="title-md"
-            sx={{
-              backgroundColor: "#e3f2fd",
+            sx={(theme) => ({
+              backgroundColor: theme.vars.palette.primary.softBg,
               display: "inline-block",
-              padding: "0.4rem 1rem",
+              px: 2,
+              py: 1,
               borderRadius: "8px",
-              color: "#1976d2",
+              color: "primary",
               fontWeight: "bold",
-            }}
+            })}
           >
-            price: ${book.price}
+            {`Price: $${book.price}`}
           </Typography>
-        </>
+        </motion.div>
       )}
     </SharedModalWrapper>
   );
