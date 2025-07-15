@@ -33,7 +33,7 @@ export default function CartButton({ bookId }: CartButtonProps) {
           book_id: bookId,
           quantity: 1,
         }).unwrap();
-        toast.success(t("bookdeletedTocart"));
+        toast.success(t("bookAddedTocart"));
       }
       await refetch();
     } catch (error) {

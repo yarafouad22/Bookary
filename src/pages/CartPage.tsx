@@ -62,7 +62,7 @@ export default function CartPage() {
   const handleMoveToWishlist = async (bookId: string) => {
     await addToWishlist({ user_id: USER_ID, book_id: bookId });
     await removeFromCart({ user_id: USER_ID, book_id: bookId });
-    toast.success(t("bookaddedToWishlist"));
+    toast.success(t("bookAddedToWishlist"));
   };
 
   const total = cart.reduce((sum, item) => {
