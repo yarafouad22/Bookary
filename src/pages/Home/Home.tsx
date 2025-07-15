@@ -5,6 +5,8 @@ import ScrollToTopButton from "../../Component/Shared/ScrollToTopButton";
 import Hero from "../../Component/Shared/Hero/Hero";
 import { useTranslation } from "react-i18next";
 import BestSellersScroll from "../../Component/Shared/BestSellersScroll";
+import CategoriesGrid from "../../Component/CategoriesGrid";
+import StatsSection from "../../Component/StatsSection";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -54,6 +56,8 @@ const Home = () => {
       )}
 
       <Products />
+      <CategoriesGrid />
+      <StatsSection />
       <ScrollToTopButton />
     </Box>
   );

@@ -6,23 +6,19 @@ const theme = extendTheme({
       palette: {
         primary: {
           solidBg: "#FF4081",
-          solidHoverBg: "#e91e63",
-          solidActiveBg: "#c2185b",
         },
         background: {
-          body: "#ffffff",
+          body: "#ffff",
         },
       },
     },
     dark: {
       palette: {
         primary: {
-          solidBg: "#c2185b",
-          solidHoverBg: "#ad1457",
-          solidActiveBg: "#880e4f",
+          solidBg: "#880e4f",
         },
         background: {
-          body: "#424242",
+          body: "#555",
         },
       },
     },

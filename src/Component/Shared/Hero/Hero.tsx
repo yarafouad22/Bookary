@@ -1,187 +1,135 @@
-import { Typography, Button } from "@mui/joy";
-import { useNavigate } from "react-router-dom";
+import { Typography, Button, Box, Grid } from "@mui/joy";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import styles from "./Hero.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleShopNow = () => {
     navigate("/products");
   };
 
-  const books = [
-    {
-      src: "https://cdn-icons-png.flaticon.com/512/2232/2232688.png",
-      top: "20%",
-      left: "45%",
-      size: 130,
-    },
-    {
-      src: "https://cdn-icons-png.flaticon.com/512/29/29302.png",
-      top: "50%",
-      left: "60%",
-      size: 100,
-    },
-  ];
-
   return (
-    <motion.div
-      style={{
-        backgroundImage: `url("https://images.unsplash.com/photo-1512820790803-83ca734da794")`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        width: "100%",
-        marginTop: "0",
-        paddingTop: 0,
-      }}
+    <Box
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      sx={(theme) => ({
+        backgroundColor:
+          theme.palette.mode === "light"
+            ? theme.vars.palette.primary.softBg
+            : theme.vars.palette.background.level1,
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+      })}
     >
-      <motion.div
-        className={styles.hero}
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.3,
-            },
-          },
-        }}
-        style={{
-          background: "linear-gradient(135deg, #667eea, #FF4081)",
-          height: "100vh",
-          width: "100%",
-          position: "relative",
-          overflow: "hidden",
+      <Grid
+        container
+        spacing={4}
+        sx={{
+          maxWidth: 1200,
+          mx: "auto",
+          px: 2,
+          py: 8,
         }}
       >
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              style={{
-                backgroundColor: "#000",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                zIndex: 2,
-              }}
-            />
-          )}
-        </AnimatePresence>
-
-        {books.map((book, index) => (
-          <motion.img
-            key={index}
-            src={book.src}
-            alt="Book"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 0.8, y: 0 }}
-            transition={{ duration: 1, delay: index * 0.3 }}
-            style={{
-              position: "absolute",
-              top: book.top,
-              left: book.left,
-              width: book.size,
-              height: book.size,
-              zIndex: 1,
-              pointerEvents: "none",
-              opacity: 1,
-            }}
-          />
-        ))}
-
-        <motion.div
-          style={{
-            position: "relative",
-            zIndex: 3,
+        <Grid
+          xs={12}
+          md={6}
+          sx={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             justifyContent: "center",
-            height: "100%",
-            textAlign: "center",
+            alignItems: "center",
+            gap: 4,
           }}
         >
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: -50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-            }}
+            initial={{ scale: 0, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <Box
+              sx={(theme) => ({
+                width: { xs: 60, sm: 100, md: 120 },
+                height: { xs: 120, sm: 180, md: 220 },
+                backgroundColor: theme.vars.palette.primary.solidBg,
+                borderRadius: "4px",
+                boxShadow: theme.shadow.lg,
+              })}
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ scale: 0, rotate: 10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <Box
+              sx={(theme) => ({
+                width: { xs: 60, sm: 100, md: 120 },
+                height: { xs: 120, sm: 180, md: 220 },
+                backgroundColor: theme.vars.palette.primary.solidHoverBg,
+                borderRadius: "4px",
+                boxShadow: theme.shadow.lg,
+              })}
+            />
+          </motion.div>
+        </Grid>
+
+        <Grid xs={12} md={6}>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <Typography
               level="h1"
-              sx={{
-                color: "#fff",
-                fontFamily: "'Poppins', sans-serif",
+              sx={(theme) => ({
+                color: theme.vars.palette.text.primary,
                 fontWeight: 700,
-              }}
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: { xs: "2rem", md: "3rem" },
+              })}
             >
               {t("Welcome to Our Book Store")}
             </Typography>
-          </motion.div>
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-            }}
-          >
+
             <Typography
               level="h3"
-              sx={{
-                color: "#e0e0e0",
+              sx={(theme) => ({
+                color: theme.vars.palette.text.secondary,
                 mt: 2,
                 fontFamily: "'Poppins', sans-serif",
-              }}
+                fontSize: { xs: "1.2rem", md: "1.5rem" },
+              })}
             >
               {t("Find your next favorite book here")}!
             </Typography>
-          </motion.div>
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, scale: 0.8 },
-              visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-            style={{ marginTop: "2rem" }}
-          >
+
             <Button
-              variant="solid"
-              size="lg"
-              color="primary"
               onClick={handleShopNow}
+              variant="solid"
+              color="primary"
+              size="lg"
               sx={{
+                mt: 4,
+                borderRadius: "30px",
                 px: 4,
                 py: 1.5,
-                borderRadius: "30px",
                 fontWeight: "bold",
                 textTransform: "none",
                 fontSize: "16px",
-                backgroundColor: "#FF4081",
-                "&:hover": {
-                  backgroundColor: "#e91e63",
-                },
               }}
             >
               {t("Shop Now")}
             </Button>
           </motion.div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

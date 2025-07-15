@@ -17,7 +17,6 @@ const Header = () => {
         px: 3,
         boxShadow: "sm",
         display: "flex",
-        backgroundColor: "rgba(246, 22, 156, 0.39)",
         justifyContent: "space-between",
         alignItems: "center",
         borderRadius: 0,
@@ -29,7 +28,6 @@ const Header = () => {
           display: "flex",
           alignItems: "center",
           gap: 1,
-          color: "text.primary",
           px: 1.5,
           py: 0.5,
           borderRadius: "md",
@@ -41,7 +39,7 @@ const Header = () => {
           },
         }}
       >
-        <MenuBookIcon color="primary" sx={{ fontSize: 28 }} />
+        <MenuBookIcon sx={{ fontSize: 28 }} />
         Bookary
       </Box>
 

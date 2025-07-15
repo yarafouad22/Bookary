@@ -7,6 +7,8 @@ import {
   useGetCartQuery,
 } from "../../Services/books";
 import { USER_ID } from "../../Supabase/supabaseClient";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 interface CartButtonProps {
   bookId: string;
@@ -24,12 +26,14 @@ export default function CartButton({ bookId }: CartButtonProps) {
     try {
       if (isInCart) {
         await removeFromCart({ user_id: USER_ID, book_id: bookId }).unwrap();
+        toast.success(t("bookdeletedTocart"));
       } else {
         await addToCart({
           user_id: USER_ID,
           book_id: bookId,
           quantity: 1,
         }).unwrap();
+        toast.success(t("bookdeletedTocart"));
       }
       await refetch();
     } catch (error) {

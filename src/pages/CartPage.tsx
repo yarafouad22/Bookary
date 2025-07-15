@@ -16,6 +16,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import Grid from "@mui/joy/Grid";
+import Container from "@mui/joy/Container";
 
 export default function CartPage() {
   const { t } = useTranslation();
@@ -53,11 +56,13 @@ export default function CartPage() {
 
   const handleRemoveFromCart = async (bookId: string) => {
     await removeFromCart({ user_id: USER_ID, book_id: bookId });
+    toast.success(t("bookdeletedTocart"));
   };
 
   const handleMoveToWishlist = async (bookId: string) => {
     await addToWishlist({ user_id: USER_ID, book_id: bookId });
     await removeFromCart({ user_id: USER_ID, book_id: bookId });
+    toast.success(t("bookaddedToWishlist"));
   };
 
   const total = cart.reduce((sum, item) => {
@@ -98,117 +103,120 @@ export default function CartPage() {
   }
 
   return (
-    <div>
+    <Container maxWidth="lg">
       <Typography
-        style={{
+        level="h4"
+        sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
-        level="h3"
-        sx={{ mb: 2 }}
       >
         {t("cart")}
       </Typography>
 
-      {cart.map((item) => {
-        if (!item.books) return null;
-        return (
-          <Sheet
-            key={item.id}
-            variant="outlined"
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: { xs: "flex-start", sm: "center" },
-              gap: 2,
-              p: 2,
-              my: 1,
-              borderRadius: "md",
-            }}
-          >
-            <Box
-              component="img"
-              src={item.books.image_url}
-              alt={item.books.title}
-              sx={{
-                width: { xs: 60, sm: 80 },
-                height: { xs: 80, sm: 100 },
-                borderRadius: 1,
-                objectFit: "cover",
-              }}
-            />
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          {cart.map((item) => {
+            if (!item.books) return null;
+            return (
+              <Grid xs={6} sm={4} md={2} key={item.id}>
+                <Sheet
+                  variant="outlined"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    p: 2,
+                    mt: 2,
+                    borderRadius: "md",
+                    height: "100%",
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={item.books.image_url}
+                    alt={item.books.title}
+                    sx={{
+                      width: "100%",
+                      height: 200,
+                      borderRadius: 1,
+                      objectFit: "cover",
+                    }}
+                  />
 
-            <Box sx={{ flexGrow: 1, width: "100%" }}>
-              <Typography level="title-md">{item.books.title}</Typography>
-              <Typography level="body-sm" sx={{ mt: 0.5 }}>
-                {t("price")}: {item.books.price} ×
-                {quantities[item.book_id] ?? item.quantity}
-              </Typography>
-              <Input
-                type="number"
-                value={quantities[item.book_id] ?? item.quantity}
-                onChange={(e) =>
-                  handleQuantityChange(item.book_id, Number(e.target.value))
-                }
-                sx={{
-                  width: { xs: "100%", sm: 200 },
-                  mt: 2,
-                }}
-                size="sm"
-              />
-            </Box>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Typography level="title-md">{item.books.title}</Typography>
+                    <Typography level="body-sm" sx={{ mt: 0.5 }}>
+                      {t("price")}: {item.books.price} ×{" "}
+                      {quantities[item.book_id] ?? item.quantity}
+                    </Typography>
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
-                gap: 1,
-                width: { xs: "100%", sm: "auto" },
-              }}
-            >
-              <Button
-                color="danger"
-                onClick={() => handleRemoveFromCart(item.book_id)}
-                fullWidth
-              >
-                {t("Delete")}
-              </Button>
+                    <Input
+                      type="number"
+                      value={quantities[item.book_id] ?? item.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          item.book_id,
+                          Number(e.target.value)
+                        )
+                      }
+                      sx={{
+                        width: "100%",
+                        mt: 2,
+                      }}
+                      size="sm"
+                    />
+                  </Box>
 
-              <Button
-                color="neutral"
-                variant="soft"
-                onClick={() => handleMoveToWishlist(item.book_id)}
-                fullWidth
-              >
-                {t("Add to wishlist")}
-              </Button>
-            </Box>
-          </Sheet>
-        );
-      })}
+                  <Box
+                    sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+                  >
+                    <Button
+                      color="danger"
+                      variant="soft"
+                      onClick={() => handleRemoveFromCart(item.book_id)}
+                      fullWidth
+                    >
+                      {t("Delete")}
+                    </Button>
 
-      <Typography
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        level="h4"
-        sx={{ mt: 3 }}
-      >
-        {t("total")}: {total.toFixed(2)} $
-      </Typography>
+                    <Button
+                      color="primary"
+                      onClick={() => handleMoveToWishlist(item.book_id)}
+                      fullWidth
+                    >
+                      {t("Add to wishlist")}
+                    </Button>
+                  </Box>
+                </Sheet>
+              </Grid>
+            );
+          })}
+        </Grid>
 
-      <Button
-        fullWidth
-        sx={{ mt: 2 }}
-        onClick={() => navigate("/checkout")}
-        color="primary"
-        size="lg"
-      >
-        {t("to Checkout")}
-      </Button>
-    </div>
+        <Typography
+          level="h4"
+          sx={{
+            mt: 4,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {t("total")}: {total.toFixed(2)} $
+        </Typography>
+
+        <Button
+          fullWidth
+          sx={{ mt: 2 }}
+          onClick={() => navigate("/checkout")}
+          color="primary"
+          size="lg"
+        >
+          {t("to Checkout")}
+        </Button>
+      </Box>
+    </Container>
   );
 }

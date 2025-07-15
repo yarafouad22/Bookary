@@ -10,8 +10,8 @@ export default function HeaderBasket() {
 
   return (
     <div style={{ display: "flex", gap: "1rem" }}>
-      <IconButton component={RouterLink} to="/wishlist" color="danger">
-        <Badge badgeContent={wishlist.length} color="danger">
+      <IconButton component={RouterLink} to="/wishlist" color="primary">
+        <Badge badgeContent={wishlist.length} color="primary">
           <Favorite />
         </Badge>
       </IconButton>

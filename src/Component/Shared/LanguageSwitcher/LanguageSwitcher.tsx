@@ -26,10 +26,10 @@ export default function LanguageSwitcher() {
           borderRadius: 20,
           fontWeight: "bold",
           textTransform: "uppercase",
-          bgcolor: "#FF4081",
-          color: "#fff",
+          bgcolor: "primary",
+          color: "primary",
           "&:hover": {
-            bgcolor: "#e91e63",
+            bgcolor: "primary",
           },
           px: 2,
           py: 1,
@@ -53,11 +53,8 @@ export default function LanguageSwitcher() {
               fontSize: "14px",
               display: "flex",
               justifyContent: "space-between",
-              color: "#333",
-              "&:hover": {
-                bgcolor: "#FFEEF3",
-                color: "#FF4081",
-              },
+
+              "&:hover": {},
             }}
           >
             <span>{item.label}</span>

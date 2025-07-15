@@ -1,106 +1,157 @@
-import { Box, Typography, Link, Stack } from "@mui/joy";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { Box, Typography, Link, Grid } from "@mui/joy";
 
-function Footer() {
+export default function Footer() {
   return (
     <Box
-      component="footer"
       sx={(theme) => ({
-        backgroundColor: theme.palette.mode === "dark" ? "#1a1a1a" : "#f1f1f1",
-        color: theme.palette.mode === "dark" ? "#fff" : "#000",
-        mt: 10,
+        backgroundColor: theme.vars.palette.background.surface,
+        mt: 8,
         py: 4,
-        px: 2,
-        display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          sm: "repeat(3, 1fr)",
-        },
-        gap: 3,
-        textAlign: { xs: "center", sm: "left" },
+        px: { xs: 2, md: 8 },
+        color: theme.vars.palette.text.primary,
       })}
     >
-      <Box>
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent={{ xs: "center", sm: "flex-start" }}
-          alignItems="center"
-        >
-          <MenuBookIcon
-            sx={(theme) => ({
-              fontSize: 28,
-              color: theme.palette.mode === "dark" ? "#1976d2" : "#1976d2",
-            })}
-          />
+      <Grid container spacing={4}>
+        <Grid xs={12} md={3}>
           <Typography
             level="h4"
             sx={(theme) => ({
-              color: theme.palette.mode === "dark" ? "#fff" : "#5556",
+              fontWeight: "bold",
+              mb: 2,
+              color: theme.vars.palette.text.primary,
             })}
           >
             Bookary
           </Typography>
-        </Stack>
+        </Grid>
+
+        <Grid xs={12} md={3}>
+          <Typography
+            level="h4"
+            sx={(theme) => ({
+              fontWeight: "bold",
+              mb: 2,
+              color: theme.vars.palette.text.primary,
+            })}
+          >
+            Need Help
+          </Typography>
+          <Typography
+            level="body-sm"
+            sx={(theme) => ({
+              color: theme.vars.palette.text.secondary,
+            })}
+          >
+            +(84) - 1800 - 4635
+            <br />
+            Monday – Friday: 9:00-20:00
+            <br />
+            Saturday: 11:00 – 15:00
+          </Typography>
+          <Link
+            href="mailto:contact@example.com"
+            underline="always"
+            sx={(theme) => ({
+              display: "block",
+              mt: 1,
+              color: theme.vars.palette.primary.solidBg,
+              fontWeight: "bold",
+            })}
+          >
+            contact@example.com
+          </Link>
+        </Grid>
+
+        <Grid xs={12} md={3}>
+          <Typography
+            level="h4"
+            sx={(theme) => ({
+              fontWeight: "bold",
+              mb: 2,
+              color: theme.vars.palette.text.primary,
+            })}
+          >
+            Explore
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            {["About us", "Sitemap", "Bookmarks", "Sign in/Join"].map(
+              (text) => (
+                <Link
+                  key={text}
+                  href="#"
+                  sx={(theme) => ({
+                    color: theme.vars.palette.text.secondary,
+                  })}
+                >
+                  {text}
+                </Link>
+              )
+            )}
+          </Box>
+        </Grid>
+
+        <Grid xs={12} md={3}>
+          <Typography
+            level="h4"
+            sx={(theme) => ({
+              fontWeight: "bold",
+              mb: 2,
+              color: theme.vars.palette.text.primary,
+            })}
+          >
+            Our Service
+          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            {[
+              "Help Center",
+              "Returns",
+              "Product Recalls",
+              "Accessibility",
+              "Contact Us",
+              "Store Pickup",
+            ].map((text) => (
+              <Link
+                key={text}
+                href="#"
+                sx={(theme) => ({
+                  color: theme.vars.palette.text.secondary,
+                })}
+              >
+                {text}
+              </Link>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Box
+        sx={(theme) => ({
+          height: "1px",
+          backgroundColor: theme.vars.palette.divider,
+          my: 3,
+          width: "100%",
+        })}
+      />
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
         <Typography
+          level="body-xs"
           sx={(theme) => ({
-            color: theme.palette.mode === "dark" ? "#ccc" : "#555",
-            mt: 1,
+            color: theme.vars.palette.text.tertiary,
+            textAlign: "center",
           })}
         >
-          © 2025 All rights reserved.
+          Copyright © {new Date().getFullYear()} Bookary. All rights reserved.
         </Typography>
-      </Box>
-
-      <Box>
-        <Stack spacing={1}>
-          <Typography
-            sx={(theme) => ({
-              color: theme.palette.mode === "dark" ? "#ccc" : "#555",
-            })}
-          >
-            Contact us:
-          </Typography>
-          {["About Us", "Contact", "Privacy Policy"].map((text, i) => (
-            <Link
-              key={i}
-              href="#"
-              underline="hover"
-              sx={(theme) => ({
-                color: theme.palette.mode === "dark" ? "#90caf9" : "#1976d2",
-              })}
-            >
-              {text}
-            </Link>
-          ))}
-        </Stack>
-      </Box>
-
-      <Box>
-        <Stack spacing={1}>
-          <Typography
-            sx={(theme) => ({
-              color: theme.palette.mode === "dark" ? "#ccc" : "#555",
-            })}
-          >
-            Follow us:
-          </Typography>
-          {["Facebook", "Twitter", "Instagram"].map((platform, i) => (
-            <Link
-              key={i}
-              href="#"
-              underline="hover"
-              sx={(theme) => ({
-                color: theme.palette.mode === "dark" ? "#90caf9" : "#1976d2",
-              })}
-            >
-              {platform}
-            </Link>
-          ))}
-        </Stack>
       </Box>
     </Box>
   );
 }
-
-export default Footer;

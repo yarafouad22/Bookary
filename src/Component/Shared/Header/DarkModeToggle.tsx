@@ -7,10 +7,7 @@ export default function DarkModeToggle() {
   const { mode, setMode } = useColorScheme();
 
   return (
-    <IconButton
-      color="primary"
-      onClick={() => setMode(mode === "light" ? "dark" : "light")}
-    >
+    <IconButton onClick={() => setMode(mode === "light" ? "dark" : "light")}>
       {mode === "light" ? <LightModeIcon /> : <DarkModeIcon />}
     </IconButton>
   );

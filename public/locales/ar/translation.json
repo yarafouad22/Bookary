@@ -1,5 +1,5 @@
 {
-    "Best Sellers":"الكتب الاكثر مبيعا",
+    "Bestselling books":"الكتب الاكثر مبيعا",
   "cart": "سلة المشتريات",
   "addToCart": "أضف إلى السلة",
    "Add to wishlist":"أضف إلى المفضلة",
@@ -11,8 +11,13 @@
   "total":"الاجمالي",
   " Delete":"حذف",
   "price":"السعر",
-  " Welcome to Our Book Store":"أهلاً بك في متجر الكتب الخاص بنا",
+  "Welcome to Our Book Store":"أهلاً بك في متجر الكتب الخاص بنا",
   "Find your next favorite book here":"اكتشف كتابك المفضل القادم هنا",
   "Books":"مكتبتك",
-  "Filter by price":"اختار السعر "
+  "Filter by price":"اختار السعر ",
+    "bookAddedToWishlist":" تم إضافة الكتاب إلى قائمة المفضلة",
+  "bookAddedTocart":" تم إضافة الكتاب إلى عربة التسوق",
+"bookdeletedToWishlist":"تم حذف الكتاب من قائمة المفضلة",
+"bookdeletedTocart":"تم حذف الكتاب من قائمة المفضلة",
+"Category":" تصنيف"
 }

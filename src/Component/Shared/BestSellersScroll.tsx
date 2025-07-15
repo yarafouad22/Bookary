@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/joy";
 import type { Book } from "../../Services/books";
+import { useTheme } from "@mui/joy/styles";
 import { t } from "i18next";
 
 interface BestSellersScrollProps {
@@ -10,6 +11,8 @@ interface BestSellersScrollProps {
 export default function BestSellersScroll({
   bestSellers,
 }: BestSellersScrollProps) {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -17,17 +20,36 @@ export default function BestSellersScroll({
         px: 2,
       }}
     >
-      <Typography
-        variant="h4"
-        gutterBottom
+      <Box
         sx={{
-          color: "#333",
-          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: { xs: "center", md: "flex-start" },
+          pl: { xs: 0, md: 8 },
           mb: 4,
         }}
       >
-        {t("Best Sellers")}
-      </Typography>
+        <Typography
+          level="h3"
+          sx={{
+            color: theme.vars.palette.text.primary,
+            fontWeight: "bold",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {t("Bestselling books")}
+        </Typography>
+
+        <Box
+          sx={{
+            width: { xs: "150px", md: "1000px" },
+            height: "1px",
+            backgroundColor: theme.vars.palette.divider,
+            ml: 2,
+            borderRadius: "1px",
+          }}
+        />
+      </Box>
 
       <Box
         sx={{
@@ -38,14 +60,14 @@ export default function BestSellersScroll({
           py: 2,
           pb: 4,
           "&::-webkit-scrollbar": {
-            height: "8px",
+            height: "5px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#FF4081",
+            backgroundColor: theme.vars.palette.neutral.outlinedBorder,
             borderRadius: "4px",
           },
           "&::-webkit-scrollbar-track": {
-            backgroundColor: "#f1f1f1",
+            backgroundColor: theme.vars.palette.background.level1,
             borderRadius: "4px",
           },
         }}
@@ -59,9 +81,9 @@ export default function BestSellersScroll({
             transition={{ duration: 0.5, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
             style={{
-              background: "#fff",
+              background: theme.vars.palette.background.surface,
               borderRadius: "12px",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+              boxShadow: theme.shadow.lg,
               flex: "0 0 250px",
               cursor: "pointer",
               overflow: "hidden",
@@ -72,7 +94,7 @@ export default function BestSellersScroll({
               alt={book.title}
               style={{
                 width: "100%",
-                height: "180px",
+                height: "300px",
                 objectFit: "cover",
                 display: "block",
               }}
@@ -82,10 +104,10 @@ export default function BestSellersScroll({
             />
             <Box sx={{ p: 2 }}>
               <Typography
-                variant="subtitle1"
+                level="h2"
                 sx={{
                   fontWeight: "bold",
-                  color: "#333",
+                  color: theme.vars.palette.text.primary,
                   fontSize: "14px",
                   mb: 1,
                 }}
@@ -93,8 +115,12 @@ export default function BestSellersScroll({
                 {book.title}
               </Typography>
               <Typography
-                variant="body2"
-                sx={{ color: "#FF4081", fontWeight: "bold", fontSize: "14px" }}
+                level="h3"
+                sx={{
+                  color: theme.vars.palette.primary.solidBg,
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
               >
                 ${book.price?.toFixed(2) || "0.00"}
               </Typography>

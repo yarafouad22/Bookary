@@ -1,5 +1,5 @@
 {
-    "Best Sellers":"Best Sellers",
+    "Bestselling books":"Bestselling books",
   "cart": "Cart",
   "addToCart": "Add to Cart",
   "Add to Wishlist":"Add to Wishlist",
@@ -11,9 +11,13 @@
   "total":"total",
 "  Delete":"Delete",
 "price":"price",
-  " Welcome to Our Book Store":" Welcome to Our Book Store",
+  "Welcome to Our Book Store":" Welcome to Our Book Store",
   "Find your next favorite book here":"Find your next favorite book here",
   "Books":"Your Library",
-  "Filter by price":"Filter by price"
-
+  "Filter by price":"Filter by price",
+  "bookAddedToWishlist":"book  Added To Wishlist",
+  "bookAddedTocart":"book  Added To cart",
+"bookdeletedToWishlist":"book deleted To Wishlist",
+"bookdeletedTocart":"book deleted To cart",
+"Category":"category"
 }

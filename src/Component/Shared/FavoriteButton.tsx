@@ -8,6 +8,8 @@ import {
   useGetWishlistQuery,
 } from "../../Services/books";
 import { USER_ID } from "../../Supabase/supabaseClient";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 interface FavoriteButtonProps {
   bookId: string;
@@ -24,8 +26,10 @@ export default function FavoriteButton({ bookId }: FavoriteButtonProps) {
     e.stopPropagation();
     if (isInWishlist) {
       removeFromWishlist({ user_id: USER_ID, book_id: bookId });
+      toast.success(t("bookdeletedToWishlist"));
     } else {
       addToWishlist({ user_id: USER_ID, book_id: bookId });
+      toast.success(t("bookAddedToWishlist"));
     }
   };
 

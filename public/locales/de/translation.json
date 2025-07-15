@@ -1,5 +1,5 @@
 {
-  "Best Sellers":"Meistverkaufte Bücher",
+  "Bestselling books":"Meistverkaufte Bücher",
   "cart": "Warenkorb",
   "addToCart": "In den Warenkorb",
   "Add to wishlist":"Zur Wunschliste hinzufügen",
@@ -10,9 +10,13 @@
  "total":"Gesamt",
  " Delete":"Löschen",
  "price":"Preis",
- " Welcome to Our Book Store":"Willkommen in unserem Buchladen",
+ "Welcome to Our Book Store":"Willkommen in unserem Buchladen",
  "Find your next favorite book here":"Finde dein nächstes Lieblingsbuch hier",
- "Books":"Deine Bibliothek",
- "Filter by price":"Nach Preis filtern"
-
+ "Books": "Bücher",
+  "bookAddedToWishlist": "Buch zur Wunschliste hinzugefügt",
+  "bookdeletedToWishlist": "Buch aus dem Warenkorb hinzugefügt",
+  "bookAddedTocart": "Buch zum Warenkorb hinzugefügt",
+  "bookdeletedTocart": "Buch aus dem Warenkorb entfernt",
+  "Filter by price": "Nach Preis filtern",
+  "Category":"Kategorie"
 }
