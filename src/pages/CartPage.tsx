@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import Grid from "@mui/joy/Grid";
 import Container from "@mui/joy/Container";
 
 export default function CartPage() {
@@ -66,8 +65,8 @@ export default function CartPage() {
 
   if (isLoading) {
     return (
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -75,7 +74,7 @@ export default function CartPage() {
         }}
       >
         <CircularProgress />
-      </div>
+      </Box>
     );
   }
 
@@ -100,144 +99,144 @@ export default function CartPage() {
       <Typography
         level="h4"
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          textAlign: "center",
+          mb: 3,
         }}
       >
         {t("cart")}
       </Typography>
 
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {cart.map((item) => {
-            if (!item.books) return null;
-            return (
-              <Grid xs={6} sm={4} md={2} key={item.id}>
-                <Sheet
-                  variant="outlined"
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {cart.map((item) => {
+          if (!item.books) return null;
+          return (
+            <Sheet
+              key={item.id}
+              variant="outlined"
+              sx={{
+                display: "flex",
+                flexDirection: {
+                  xs: "column",
+                  sm: "row",
+                },
+                gap: 2,
+                p: { xs: 1.5, sm: 2 },
+                borderRadius: "md",
+              }}
+            >
+              <Box
+                component="img"
+                src={item.books.image_url}
+                alt={item.books.title}
+                sx={{
+                  width: { xs: "100%", sm: 120 },
+                  height: { xs: 200, sm: 160 },
+                  borderRadius: 1,
+                  objectFit: "cover",
+                }}
+              />
+
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography level="title-md" sx={{ mb: { xs: 1, sm: 0 } }}>
+                  {item.books.title}
+                </Typography>
+                <Typography level="body-sm">
+                  {t("price")}: {item.books.price} ×{" "}
+                  {quantities[item.book_id] ?? item.quantity}
+                </Typography>
+
+                <Box
                   sx={{
                     display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    p: 2,
-                    mt: 2,
-                    borderRadius: "md",
-                    height: "100%",
+                    alignItems: "center",
+                    gap: 1,
+                    mt: 1,
+                    flexWrap: "wrap",
                   }}
                 >
-                  <Box
-                    component="img"
-                    src={item.books.image_url}
-                    alt={item.books.title}
-                    sx={{
-                      width: "100%",
-                      height: 200,
-                      borderRadius: 1,
-                      objectFit: "cover",
-                    }}
-                  />
-
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Typography level="title-md">{item.books.title}</Typography>
-                    <Typography level="body-sm" sx={{ mt: 0.5 }}>
-                      {t("price")}: {item.books.price} ×{" "}
-                      {quantities[item.book_id] ?? item.quantity}
-                    </Typography>
-
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: 1,
-                        mt: 2,
-                      }}
-                    >
-                      <Button
-                        variant="outlined"
-                        size="sm"
-                        onClick={() =>
-                          handleQuantityChange(
-                            item.book_id,
-                            (quantities[item.book_id] ?? item.quantity) - 1
-                          )
-                        }
-                        disabled={
-                          (quantities[item.book_id] ?? item.quantity) <= 1
-                        }
-                      >
-                        –
-                      </Button>
-                      <Typography
-                        level="title-sm"
-                        sx={{ minWidth: "32px", textAlign: "center" }}
-                      >
-                        {quantities[item.book_id] ?? item.quantity}
-                      </Typography>
-                      <Button
-                        variant="outlined"
-                        size="sm"
-                        onClick={() =>
-                          handleQuantityChange(
-                            item.book_id,
-                            (quantities[item.book_id] ?? item.quantity) + 1
-                          )
-                        }
-                      >
-                        +
-                      </Button>
-                    </Box>
-                  </Box>
-
-                  <Box
-                    sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() =>
+                      handleQuantityChange(
+                        item.book_id,
+                        (quantities[item.book_id] ?? item.quantity) - 1
+                      )
+                    }
+                    disabled={(quantities[item.book_id] ?? item.quantity) <= 1}
                   >
-                    <Button
-                      color="danger"
-                      variant="soft"
-                      onClick={() => handleRemoveFromCart(item.book_id)}
-                      fullWidth
-                    >
-                      {t("Delete")}
-                    </Button>
+                    –
+                  </Button>
+                  <Typography
+                    level="title-sm"
+                    sx={{ minWidth: "32px", textAlign: "center" }}
+                  >
+                    {quantities[item.book_id] ?? item.quantity}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() =>
+                      handleQuantityChange(
+                        item.book_id,
+                        (quantities[item.book_id] ?? item.quantity) + 1
+                      )
+                    }
+                  >
+                    +
+                  </Button>
+                </Box>
 
-                    <Button
-                      color="primary"
-                      onClick={() => handleMoveToWishlist(item.book_id)}
-                      fullWidth
-                    >
-                      {t("Add to wishlist")}
-                    </Button>
-                  </Box>
-                </Sheet>
-              </Grid>
-            );
-          })}
-        </Grid>
+                <Box sx={{ display: "flex", gap: 1, mt: 1, flexWrap: "wrap" }}>
+                  <Button
+                    color="danger"
+                    variant="soft"
+                    onClick={() => handleRemoveFromCart(item.book_id)}
+                    fullWidth
+                  >
+                    {t("Delete")}
+                  </Button>
 
-        <Typography
-          level="h4"
-          sx={{
-            mt: 4,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {t("total")}: {total.toFixed(2)} $
-        </Typography>
-
-        <Button
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={() => navigate("/checkout")}
-          color="primary"
-          size="lg"
-        >
-          {t("to Checkout")}
-        </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => handleMoveToWishlist(item.book_id)}
+                    fullWidth
+                  >
+                    {t("Add to wishlist")}
+                  </Button>
+                </Box>
+              </Box>
+            </Sheet>
+          );
+        })}
       </Box>
+
+      <Typography
+        level="h4"
+        sx={{
+          mt: 4,
+          textAlign: "center",
+        }}
+      >
+        {t("total")}: {total.toFixed(2)} $
+      </Typography>
+
+      <Button
+        fullWidth
+        sx={{ mt: 2 }}
+        onClick={() => navigate("/checkout")}
+        color="primary"
+        size="lg"
+      >
+        {t("to Checkout")}
+      </Button>
     </Container>
   );
 }

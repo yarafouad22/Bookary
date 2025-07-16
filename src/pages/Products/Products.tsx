@@ -9,21 +9,30 @@ import {
   CircularProgress,
   Divider,
   IconButton,
+  Drawer,
 } from "@mui/joy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import ViewStreamIcon from "@mui/icons-material/ViewStream";
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useGetBooksByPriceQuery } from "../../Services/books";
+import { useAddToCartMutation } from "../../Services/books";
+import { USER_ID } from "../../Supabase/supabaseClient";
 import BookProfileModal from "../detalies/BookProfile";
 import ScrollToTopButton from "../../Component/Shared/ScrollToTopButton";
 import FavoriteButton from "../../Component/Shared/FavoriteButton";
-import CartButton from "../../Component/Shared/CartButton";
-import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import "./Product.scss";
+import CartPage from "../CartPage";
 
 function Product() {
   const { t } = useTranslation();
 
+  const [addToCart] = useAddToCartMutation();
   const [maxPrice, setMaxPrice] = useState(30);
+  const [columns, setColumns] = useState(2);
+  const [isCartDrawerOpen, setCartDrawerOpen] = useState(false);
 
   const {
     data: books = [],
@@ -40,6 +49,21 @@ function Product() {
   const handleCloseModal = () => {
     setSelectedBookId(null);
   };
+
+  const gridColumns =
+    columns === 1
+      ? {
+          xs: "repeat(1, 1fr)",
+          sm: "repeat(1, 1fr)",
+          md: "repeat(1, 1fr)",
+          lg: "repeat(2, 1fr)",
+        }
+      : {
+          xs: "repeat(2, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+        };
 
   if (isLoading)
     return (
@@ -66,7 +90,30 @@ function Product() {
           <Divider />
         </Box>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          mb: 2,
+          ml: 4,
+        }}
+      >
+        <IconButton
+          variant={columns === 1 ? "solid" : "soft"}
+          color="primary"
+          onClick={() => setColumns(1)}
+        >
+          <ViewStreamIcon />
+        </IconButton>
 
+        <IconButton
+          variant={columns === 2 ? "solid" : "soft"}
+          color="primary"
+          onClick={() => setColumns(2)}
+        >
+          <ViewModuleIcon />
+        </IconButton>
+      </Box>
       <Box
         className="product-layout"
         sx={(theme) => ({
@@ -74,7 +121,14 @@ function Product() {
         })}
       >
         <Box>
-          <Box className="books-grid">
+          <Box
+            className="books-grid"
+            sx={{
+              display: "grid",
+              gap: "16px",
+              gridTemplateColumns: gridColumns,
+            }}
+          >
             {books.map((book) => (
               <motion.div
                 key={book.id}
@@ -94,20 +148,7 @@ function Product() {
                     color: theme.vars.palette.text.primary,
                   })}
                 >
-                  <Box
-                    className="overlay"
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundColor: "rgba(0,0,0,0.2)",
-                      opacity: 0,
-                      transition: "opacity 0.3s ease",
-                      "&:hover": {
-                        opacity: 1,
-                      },
-                    }}
-                  />
-
+                  <Box />
                   <Box
                     sx={{
                       width: "100%",
@@ -145,7 +186,21 @@ function Product() {
                       }}
                     >
                       <FavoriteButton bookId={book.id} />
-                      <CartButton bookId={book.id} />
+                      <IconButton
+                        variant="soft"
+                        size="sm"
+                        onClick={() => {
+                          addToCart({
+                            user_id: USER_ID,
+                            book_id: book.id,
+                            quantity: 1,
+                          });
+                          setCartDrawerOpen(true);
+                        }}
+                      >
+                        <ShoppingCartIcon />
+                      </IconButton>
+
                       <IconButton
                         variant="soft"
                         size="sm"
@@ -199,6 +254,18 @@ function Product() {
           />
         </Box>
       </Box>
+      <Drawer
+        open={isCartDrawerOpen}
+        onClose={() => setCartDrawerOpen(false)}
+        anchor="right"
+        sx={{
+          width: 130,
+          maxWidth: "100vw",
+          p: 2,
+        }}
+      >
+        <CartPage />
+      </Drawer>
 
       <ScrollToTopButton />
 
