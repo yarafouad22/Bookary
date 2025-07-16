@@ -131,7 +131,7 @@ export default function WishlistPage() {
                   onClick={() => handleMoveToCart(book.id)}
                   fullWidth
                 >
-                  {t("Add to cart")}
+                  {t("addToCart")}
                 </Button>
               </Box>
             </Sheet>

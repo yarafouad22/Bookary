@@ -124,6 +124,12 @@ export default function CartPage() {
                 borderRadius: "md",
               }}
             >
+              <Typography
+                level="title-md"
+                sx={{ mb: { xs: 1, sm: 0 }, textAlign: "center" }}
+              >
+                {item.books.title}
+              </Typography>
               <Box
                 component="img"
                 src={item.books.image_url}
@@ -144,9 +150,6 @@ export default function CartPage() {
                   justifyContent: "space-between",
                 }}
               >
-                <Typography level="title-md" sx={{ mb: { xs: 1, sm: 0 } }}>
-                  {item.books.title}
-                </Typography>
                 <Typography level="body-sm">
                   {t("price")}: {item.books.price} ×{" "}
                   {quantities[item.book_id] ?? item.quantity}

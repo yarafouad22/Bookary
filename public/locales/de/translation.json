@@ -6,9 +6,9 @@
   "checkout": "Zur Kasse",
   "emptyCart": "Dein Warenkorb ist leer",
  "Shop Now":" Jetzt einkaufen ",
- " to Checkout":"Kasse",
+ "to Checkout":"Kasse",
  "total":"Gesamt",
- " Delete":"Löschen",
+ "Delete":"Löschen",
  "price":"Preis",
  "Welcome to Our Book Store":"Willkommen in unserem Buchladen",
  "Find your next favorite book here":"Finde dein nächstes Lieblingsbuch hier",
@@ -18,5 +18,6 @@
   "bookAddedTocart": "Buch zum Warenkorb hinzugefügt",
   "bookdeletedTocart": "Buch aus dem Warenkorb entfernt",
   "Filter by price": "Nach Preis filtern",
-  "Category":"Kategorie"
+  "Category":"Kategorie",
+  "place order":"Zur Kasse"
 }

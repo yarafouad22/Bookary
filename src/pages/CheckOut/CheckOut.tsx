@@ -100,7 +100,7 @@ export default function CheckoutPage() {
         )}
 
         <Button fullWidth onClick={handleSubmit}>
-          place order
+          {t("place order")}
         </Button>
       </Sheet>
     </div>

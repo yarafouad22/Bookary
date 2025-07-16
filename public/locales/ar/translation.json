@@ -7,9 +7,9 @@
   "checkout": "الدفع",
    "emptyCart": "سلتك فارغة",
   "Shop Now":"تسوق الان",
-  " to Checkout":"متابعة الدفع",
+  "to Checkout":"متابعة الدفع",
   "total":"الاجمالي",
-  " Delete":"حذف",
+  "Delete":"حذف",
   "price":"السعر",
   "Welcome to Our Book Store":"أهلاً بك في متجر الكتب الخاص بنا",
   "Find your next favorite book here":"اكتشف كتابك المفضل القادم هنا",
@@ -19,5 +19,6 @@
   "bookAddedTocart":" تم إضافة الكتاب إلى عربة التسوق",
 "bookdeletedToWishlist":"تم حذف الكتاب من قائمة المفضلة",
 "bookdeletedTocart":"تم حذف الكتاب من قائمة المفضلة",
-"Category":" تصنيف"
+"Category":" تصنيف",
+"place order":"الدفع"
 }

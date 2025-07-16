@@ -7,9 +7,9 @@
   "checkout": "Checkout",
   "emptyCart": "Your cart is empty",
   "Shop Now":"Shop Now",
-  " to Checkout":" to Checkout",
+  "to Checkout":" to Checkout",
   "total":"total",
-"  Delete":"Delete",
+"Delete":"Delete",
 "price":"price",
   "Welcome to Our Book Store":" Welcome to Our Book Store",
   "Find your next favorite book here":"Find your next favorite book here",
@@ -19,5 +19,6 @@
   "bookAddedTocart":"book  Added To cart",
 "bookdeletedToWishlist":"book deleted To Wishlist",
 "bookdeletedTocart":"book deleted To cart",
-"Category":"category"
+"Category":"category",
+"place order":"place order"
 }
